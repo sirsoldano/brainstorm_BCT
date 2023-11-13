@@ -126,16 +126,54 @@
   - **(ASDの場合)** Prefrontal(Center)をチェックしPickをクリックし、頭頂部背側マーカーを指定する→Prefrontal(Left)をチェックしPickをクリックし頭頂部腹側マーカーを指定する　*※どう見ても場所が外れているマーカーをどうすべきかは不明、相馬は本来あるであろう場所を勝手に置いてました。*
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/cfbea2e2-4519-42ad-b807-f9600cca2d8f)
   - **(Alzheimerの場合)** Prefrontal(Center)をチェックしPickをクリックし、前頭部マーカーを指定する。261以降の被験者はPrefrontal(Left)をチェックしPickをクリックし、頭頂部マーカーを指定する。 **FastScanからfsnファイルを開きそれを参考に指定する**
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/4c4ef4fc-80f5-4b60-9b13-4f8ac31fe939)
+
 3. MRI→MEGマーカー位置推定→**相対パス指定**でmrkファイル読み込み→マーカー数が3もしくは4の規定数と同じとなっていることを確認して位置推定実行→失敗しましたと出るが気にしない。→ GOFをチェック
 4. (Alzheimerの場合のみ?) 解析→球体モデル定義→Autoをクリック→OK
 5. MRI→位置合わせ実行→位置合わせ実行 *※どれだけmriマーカーとmrkマーカーが離れていてもそのまま一回位置合わせを実行して終了する方法もありますし、errorを小さくするようにマーカーをずらして調整する方法もあります。*
 6. 画面下のMRI画像の上で右クリック → MEGセンサー表示にチェック → MEGセンサーが現れるのでセンサーの位置がおおむねあっていることを確認する。
-7. ファイル→インポートとエクスポート→BESAテキストエクスポート→Surface point file→fiducial…と聞かれるので、はいをクリック→Surface point listの中にある点をクリックしてdeleteを繰り返し、すべて消す→NewをクリックしPickをクリック、脳の表面を選んで指定する→同じくNewをクリックしPickをクリック、脳の表面を選んで指定することを繰り返す。高さを変えつつ、20点以上選ぶこと（なるべく多い方が、あとでbrainstorm上で位置合わせをするときに精度がよい）。最初の3点は順にLPA、RPA、nasion（小さい赤、黄色、青の点）とする。→OKをクリック→ファイル名を決めて保存。日本語を入れない、被験者番号を入れないことが重要
-8. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
-9. YokogawaMegExportToolを起動
-10. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→SurfacePointfileは先ほど作った.sfpファイルを選択→Create Export Fileをクリック
-(Digitizerファイルがある場合)
-11. YokogawaMegExportToolを起動
-12. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→IdenticalMRI.txtファイルを選択→Create Export Fileをクリック(すでにsurfacepointfileでexportしている場合上書きされてしまうのでExportFilenameの末尾を_digi.conなどに変更する)
+**以下、SurfacePointFile作成、エクスポートへ**
 
-#### 聴覚野ダイポールを使った位置の確認
+#### 聴覚野ダイポールを使った位置の確認 (廣澤先生記載)
+1. NeneのMEGの.conファイル（たとえば314.prosody_neNE1_アナ雪_314_AK）を開き、これに該当するMRIファイル（この症例では3G19）を読み込むということ
+2. 209～212のどれかのチャンネルがトリガーになっているので、一番トリガーが多いチャンネルをチェック（例　この症例では211。数がトリガーのチャネル）
+3. このために右のセンサーの図の上でマウス右クリック→チャネル選択
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/2e6fb158-ba09-4449-b28a-aebb43e73f78)
+4. 同期加算のアイコンをクリック
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/0a701e04-7169-434d-b5ea-797bf6a35b7d)
+5. Level triggerを211にして、探索をクリック。パラメータを設定し、Executeをクリック。
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/8328bdc9-5136-43c2-88de-7dc550808f40)
+6. .aveファイルが作成される。編集→基線補正。パラメータは -50から0。
+7. MRIマーカー拾いと、MEGマーカー読み込み、位置合わせは前述の「マーカーを用いた位置合わせ」と同じ手順。
+8. 80-120msくらいにでる成分に注目。被験者にもよって波形は微妙に異なる
+（きれいに出る人）
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/1fd2e3ff-66ac-4a41-8c63-e42f858002e9)
+（ややぼやける人）
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/b55adcbf-8190-4546-a195-307a183a3fb9)
+9. ダイポールは左右それぞれに推定していく。その際にはsinkとsourceに注目し、Sinkとsourceの反応がきれいに出ている80-120msくらいを選んで（この人は120より遅め）
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/8d2d51cb-6fe1-4eb8-8fd1-9fc985bba863)
+10. まずは右のセンサーの画面から、ダイポールが出ていそうなところの周辺のセンサーだけを選び
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/ac706dcc-47a1-42e4-89e8-2256bfac1dc3)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/c8918a6c-c311-47e1-9686-f7cb2436da06)
+11. 解析→等価電流双極子推定→上のパラメータに設定し、推定＃１をクリック。ダイポールの場所を確認する。
+12. MRIマーカー拾いで、脳の位置を調整する。この時、下の図左にあるような場所にダイポールが推定されることを目指す。現実には下図くらいで妥協。
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/6946faf0-497b-4106-b379-459d2f2646d4)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/700fd1fd-30f2-41c9-8d5c-f7b0e5559892)
+13. ダイポールがいい位置にくるまで「MRIマーカー拾い→位置合わせ→電流双極子推定」を繰り返す。
+14. 画面下のMRIを右クリック→MEGセンサー表示で、下のような画面になるので確認に便利
+（センサーが大きくずれている例）
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/59aad27b-d4fd-4bec-b4c6-5af45293e364)
+15. 調整が終わったら、.aveを上書き保存。
+16. あらためて.conを開く。
+17. 先ほどの.mriをあらためて読み込む
+18. .mrkを読み込み、位置合わせ。
+
+
+### SurfacePointFile作成保存、con保存およびエクスポート
+1. ファイル→インポートとエクスポート→BESAテキストエクスポート→Surface point file→fiducial…と聞かれるので、はいをクリック→Surface point listの中にある点をクリックしてdeleteを繰り返し、すべて消す→NewをクリックしPickをクリック、脳の表面を選んで指定する→同じくNewをクリックしPickをクリック、脳の表面を選んで指定することを繰り返す。高さを変えつつ、20点以上選ぶこと（なるべく多い方が、あとでbrainstorm上で位置合わせをするときに精度がよい）。最初の3点は順にLPA、RPA、nasion（小さい赤、黄色、青の点）とする。→OKをクリック→ファイル名を決めて保存。日本語を入れない、被験者番号を入れないことが重要
+2. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
+3. YokogawaMegExportToolを起動
+4. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→SurfacePointfileは先ほど作った.sfpファイルを選択→Create Export Fileをクリック
+(Digitizerファイルがある場合)
+5. YokogawaMegExportToolを起動
+6. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→IdenticalMRI.txtファイルを選択→Create Export Fileをクリック(すでにsurfacepointfileでexportしている場合上書きされてしまうのでExportFilenameの末尾を_digi.conなどに変更する)
