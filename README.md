@@ -107,14 +107,35 @@
 
 大雑把な処理の流れは、
 1. MEG波形ファイル(.con)にマーカーファイル(.mrk)とMRIファイル(.mri)を紐付ける
-2. MRIの座標を左右耳介(LPA,RPA)と鼻根点(nasion)から設定する
+2. MRIの座標を左右耳介(LPA,RPA)と鼻根点(nasion)から設定する。MRI上のマーカー位置を目視で設定する。
 3. MRIの座標系とMEGのチャンネル位置を対応させるために、マーカーファイルのマーカー位置(MEGチャンネル位置と紐付いている)とMRI上のマーカー位置を合わせる。
-4. (FastScanを使用しない場合)脳表面の座標をプロットして保存したファイル(.spf)を作成する。
-5. 上記で処理した、MRIとマーカーと紐付いたMEG波形ファイル(.con)と、FastScanもしくはspfを合体して出力する(MEG160exportという別exe)
+4. 脳表面の座標をプロットして保存したファイル(.spf)を作成する。
+5. 上記で処理した、MRIとマーカーと紐付いたMEG波形ファイル(.con)と、FastScanもしくはspfを合体して出力する(YokogawaMegExportToolという別exe)
 
 以下で順を追って説明
-0. 画面解像度を**1280*800**にする。
-1. .conファイル、.mrkファイル、.mriファイル、(FastScanを用いる場合).fsnファイル　があることを確認。無い場合は一旦飛ばす(存在の有無を問い合わせるが、結局無くて除外となる可能性が高い)
-2. 開く→.conファイルを開く（例えばC:\Users\home\meg\020456\020456_gazing.con）
-3. MRI→MRIファイル名→ C:\Users\home\meg\020456\020456.mri→**相対パス指定にチェック**→開く ※複数ある場合はどれでもよいがfreesurferがあるもの且つなるだけ画像が綺麗なもので。
-4. MRI→MRIマーカー拾い→LPAにチェックしPickをクリックし左耳介前点を指定する→RPAにチェックしPickをクリック、右耳介前点を指定する→Prefrontal(Center)をチェックしPickをクリックし、Prefrontalを指定する。
+1. 画面解像度を**1280*800**にする。
+2. conファイル、mrkファイル、mriファイル、(FastScanを用いる場合)fsnファイル　があることを確認。無い場合は一旦飛ばす(存在の有無を問い合わせるが、結局無くて除外となる可能性が高い)
+3. 開く→.conファイルを開く（例えばC:\Users\home\meg\020456\020456_gazing.con）
+4. MRI→MRIファイル名→ C:\Users\home\meg\020456\020456.mri→**相対パス指定にチェック**して開く ※複数ある場合はどれでもよいがfreesurferがあるもの且つなるだけ画像が綺麗なもので。
+
+以下は解析手法ごとにパターンが分かれるようです。
+#### マーカーを用いた位置合わせ (相馬記載、廣澤先生記載)
+1. MRI→頭部座標系の設定→mri画像からNasion、LPA、RPAの位置を指定する。Nasionは鼻根、LPA、RPAは耳介腹側(解剖学的に適切な点を指定すべきか、マーカーの一番核の分厚い部分を指定すべきか不明。理屈から言えば前者)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/c30b7cda-5929-41ff-ae99-e03b309fe6af)
+2. MRI→MRIマーカー拾い→LPAにチェックしPickをクリックし左耳介マーカーを指定する→RPAにチェックしPickをクリック、右耳介マーカーを指定する→
+  - **(ASDの場合)** Prefrontal(Center)をチェックしPickをクリックし、頭頂部背側マーカーを指定する→Prefrontal(Left)をチェックしPickをクリックし頭頂部腹側マーカーを指定する　*※どう見ても場所が外れているマーカーをどうすべきかは不明、相馬は本来あるであろう場所を勝手に置いてました。*
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/cfbea2e2-4519-42ad-b807-f9600cca2d8f)
+  - **(Alzheimerの場合)** Prefrontal(Center)をチェックしPickをクリックし、前頭部マーカーを指定する。261以降の被験者はPrefrontal(Left)をチェックしPickをクリックし、頭頂部マーカーを指定する。 **FastScanからfsnファイルを開きそれを参考に指定する**
+3. MRI→MEGマーカー位置推定→**相対パス指定**でmrkファイル読み込み→マーカー数が3もしくは4の規定数と同じとなっていることを確認して位置推定実行→失敗しましたと出るが気にしない。→ GOFをチェック
+4. (Alzheimerの場合のみ?) 解析→球体モデル定義→Autoをクリック→OK
+5. MRI→位置合わせ実行→位置合わせ実行 *※どれだけmriマーカーとmrkマーカーが離れていてもそのまま一回位置合わせを実行して終了する方法もありますし、errorを小さくするようにマーカーをずらして調整する方法もあります。*
+6. 画面下のMRI画像の上で右クリック → MEGセンサー表示にチェック → MEGセンサーが現れるのでセンサーの位置がおおむねあっていることを確認する。
+7. ファイル→インポートとエクスポート→BESAテキストエクスポート→Surface point file→fiducial…と聞かれるので、はいをクリック→Surface point listの中にある点をクリックしてdeleteを繰り返し、すべて消す→NewをクリックしPickをクリック、脳の表面を選んで指定する→同じくNewをクリックしPickをクリック、脳の表面を選んで指定することを繰り返す。高さを変えつつ、20点以上選ぶこと（なるべく多い方が、あとでbrainstorm上で位置合わせをするときに精度がよい）。最初の3点は順にLPA、RPA、nasion（小さい赤、黄色、青の点）とする。→OKをクリック→ファイル名を決めて保存。日本語を入れない、被験者番号を入れないことが重要
+8. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
+9. YokogawaMegExportToolを起動
+10. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→SurfacePointfileは先ほど作った.sfpファイルを選択→Create Export Fileをクリック
+(Digitizerファイルがある場合)
+11. YokogawaMegExportToolを起動
+12. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→IdenticalMRI.txtファイルを選択→Create Export Fileをクリック(すでにsurfacepointfileでexportしている場合上書きされてしまうのでExportFilenameの末尾を_digi.conなどに変更する)
+
+#### 聴覚野ダイポールを使った位置の確認
