@@ -2,43 +2,44 @@
 
 <details>
 
-  <summary>## Fastrack (廣澤先生記載)</summary>
-D:\HDD_backup\_Gamma\Fastrak\020100_HS_Fastrakの020100_HS_MEG用マーカー　をExcelにドロップして開く
-データのある列を選択
-データタブをアクティブにする。
-区切り位置をクリック→次へ→次へ→完了
-D:\HDD_backup\Gunma_Templete_MRI_Tool\2014_7_林先生ソフトの座標並び替えシート　を開く
-先ほどのデータを黄色ハイライトの領域にコピペ
-平行移動後の座標の値、オレンジでハイライトされた5行をコピーする
-メモ帳にペースト
-020100_marker5.txtとしてD:\HDD_backup\_Gamma\Fastrak_markersに保存する。
-平行移動後の座標の値、ハイライトされていない3行をコピーする
-メモ帳にペースト
-020100_marker3.txtとしてD:\HDD_backup\_Gamma\Fastrak_markersに保存する
+  <summary>Fastrack (廣澤先生記載)</summary>
 
-D:\HDD_backup\Gunma_Templete_MRI_Tool\2014_7_林先生ソフト からBambiAnalysis_ver2.exeを起動
-ファイル→開く→体表5点.txt→先ほどの020100_marker5.txtを選択する。
-ファイル→開く→コイルマーカー点（3点）→先ほどの020100_marker3.txtを選択する。
-解析→体表点傾き補正
-Save CSV→020100tilt_correctedとして保存する。
-保存したファイルを開いて”post”の下の5×3の数字をコピー
-メモ帳にペーストして020100corrected_5.txtとして保存する。
-”post coil marker”の下の3×3の数字をコピー
-メモ帳にペーストして020100corrected_3.txtとして保存する。
+- D:\HDD_backup\_Gamma\Fastrak\020100_HS_Fastrakの020100_HS_MEG用マーカー　をExcelにドロップして開く
+- データのある列を選択
+- データタブをアクティブにする。
+- 区切り位置をクリック→次へ→次へ→完了
+- D:\HDD_backup\Gunma_Templete_MRI_Tool\2014_7_林先生ソフトの座標並び替えシート　を開く
+- 先ほどのデータを黄色ハイライトの領域にコピペ
+- 平行移動後の座標の値、オレンジでハイライトされた5行をコピーする
+- メモ帳にペースト
+- 020100_marker5.txtとしてD:\HDD_backup\_Gamma\Fastrak_markersに保存する。
+- 平行移動後の座標の値、ハイライトされていない3行をコピーする
+- メモ帳にペースト
+- 020100_marker3.txtとしてD:\HDD_backup\_Gamma\Fastrak_markersに保存する
 
-BambiAnalysis_ver2.exeに戻る。フォーム→TemplateAnalysisと選択
-1),5)デフォルト読み込み　ボタンをクリック
-3)解析対象の体表5点データ読み込み　ボタンをクリック
-先ほどの020100corrected_5.txtを選択
-4)解析　ボタンをクリック
-テンプレートパス表示をクリック
-出てきたパスをコピペする（ここではC:\BambiTempData\体表５点\5y_case05.txt）
+- D:\HDD_backup\Gunma_Templete_MRI_Tool\2014_7_林先生ソフト からBambiAnalysis_ver2.exeを起動
+- ファイル→開く→体表5点.txt→先ほどの020100_marker5.txtを選択する。
+- ファイル→開く→コイルマーカー点（3点）→先ほどの020100_marker3.txtを選択する。
+- 解析→体表点傾き補正
+- Save CSV→020100tilt_correctedとして保存する。
+- 保存したファイルを開いて”post”の下の5×3の数字をコピー
+- メモ帳にペーストして020100corrected_5.txtとして保存する。
+- ”post coil marker”の下の3×3の数字をコピー
+- メモ帳にペーストして020100corrected_3.txtとして保存する。
+
+- BambiAnalysis_ver2.exeに戻る。フォーム→TemplateAnalysisと選択
+- 1),5)デフォルト読み込み　ボタンをクリック
+- 3)解析対象の体表5点データ読み込み　ボタンをクリック
+- 先ほどの020100corrected_5.txtを選択
+- 4)解析　ボタンをクリック
+- テンプレートパス表示をクリック
+- 出てきたパスをコピペする（ここではC:\BambiTempData\体表５点\5y_case05.txt）
 
 </details>
  
 <details>
 
-  <summary>## FastScan (廣澤先生記載)</summary>
+  <summary>FastScan (廣澤先生記載)</summary>
 D:\HDD_backup\Polhemus\FastSCANからFastSCANを起動
 Openをクリック
 .fsnファイルを開く（ここではD:\HDD_backup\_Gamma\FastScan\020213_MKにある020213_MK.fsn）
