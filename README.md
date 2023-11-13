@@ -169,14 +169,14 @@
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/8d2d51cb-6fe1-4eb8-8fd1-9fc985bba863)
 
-12. まずは右のセンサーの画面から、ダイポールが出ていそうなところの周辺のセンサーだけを選び
+11. まずは右のセンサーの画面から、ダイポールが出ていそうなところの周辺のセンサーだけを選び
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/ac706dcc-47a1-42e4-89e8-2256bfac1dc3)
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/c8918a6c-c311-47e1-9686-f7cb2436da06)
 
-14. 解析→等価電流双極子推定→上のパラメータに設定し、推定＃１をクリック。ダイポールの場所を確認する。
-15. MRIマーカー拾いで、脳の位置を調整する。この時、下の図左にあるような場所にダイポールが推定されることを目指す。現実には下図くらいで妥協。
+12. 解析→等価電流双極子推定→上のパラメータに設定し、推定＃１をクリック。ダイポールの場所を確認する。
+13. MRIマーカー拾いで、脳の位置を調整する。この時、下の図左にあるような場所にダイポールが推定されることを目指す。現実には下図くらいで妥協。
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/6946faf0-497b-4106-b379-459d2f2646d4)
 
