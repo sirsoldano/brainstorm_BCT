@@ -40,6 +40,7 @@
 <details>
 
   <summary>FastScan (廣澤先生記載)</summary>
+
 - D:\HDD_backup\Polhemus\FastSCANからFastSCANを起動
 - Openをクリック
 - .fsnファイルを開く（ここではD:\HDD_backup\_Gamma\FastScan\020213_MKにある020213_MK.fsn）
