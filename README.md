@@ -105,14 +105,14 @@
 
 ## MEG160 (相馬・廣澤先生記載)
 
-### 大雑把な処理の流れは、
+#### 大雑把な処理の流れは、
 1. MEG波形ファイル(.con)にマーカーファイル(.mrk)とMRIファイル(.mri)を紐付ける
 2. MRIの座標を左右耳介(LPA,RPA)と鼻根点(nasion)から設定する。MRI上のマーカー位置を目視で設定する。
 3. MRIの座標系とMEGのチャンネル位置を対応させるために、マーカーファイルのマーカー位置(MEGチャンネル位置と紐付いている)とMRI上のマーカー位置を合わせる。
 4. 脳表面の座標をプロットして保存したファイル(.spf)を作成する。
 5. 上記で処理した、MRIとマーカーと紐付いたMEG波形ファイル(.con)と、FastScanもしくはspfを合体して出力する(YokogawaMegExportToolという別exe)
 
-### 以下で順を追って説明
+##### 以下で順を追って説明
 1. 画面解像度を**1280*800**にする。
 2. conファイル、mrkファイル、mriファイル、(FastScanを用いる場合)fsnファイル　があることを確認。無い場合は一旦飛ばす(存在の有無を問い合わせるが、結局無くて除外となる可能性が高い)
 3. 開く→.conファイルを開く（例えばC:\Users\home\meg\020456\020456_gazing.con）
@@ -121,11 +121,17 @@
 以下は解析手法ごとにパターンが分かれるようです。
 #### マーカーを用いた位置合わせ (相馬記載、廣澤先生記載)
 1. MRI→頭部座標系の設定→mri画像からNasion、LPA、RPAの位置を指定する。Nasionは鼻根、LPA、RPAは耳介腹側(解剖学的に適切な点を指定すべきか、マーカーの一番核の分厚い部分を指定すべきか不明。理屈から言えば前者)
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/c30b7cda-5929-41ff-ae99-e03b309fe6af)
+
 2. MRI→MRIマーカー拾い→LPAにチェックしPickをクリックし左耳介マーカーを指定する→RPAにチェックしPickをクリック、右耳介マーカーを指定する→
+
   - **(ASDの場合)** Prefrontal(Center)をチェックしPickをクリックし、頭頂部背側マーカーを指定する→Prefrontal(Left)をチェックしPickをクリックし頭頂部腹側マーカーを指定する　*※どう見ても場所が外れているマーカーをどうすべきかは不明、相馬は本来あるであろう場所を勝手に置いてました。*
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/cfbea2e2-4519-42ad-b807-f9600cca2d8f)
+
   - **(Alzheimerの場合)** Prefrontal(Center)をチェックしPickをクリックし、前頭部マーカーを指定する。261以降の被験者はPrefrontal(Left)をチェックしPickをクリックし、頭頂部マーカーを指定する。 **FastScanからfsnファイルを開きそれを参考に指定する**
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/4c4ef4fc-80f5-4b60-9b13-4f8ac31fe939)
 
 3. MRI→MEGマーカー位置推定→**相対パス指定**でmrkファイル読み込み→マーカー数が3もしくは4の規定数と同じとなっていることを確認して位置推定実行→失敗しましたと出るが気にしない。→ GOFをチェック
@@ -138,35 +144,54 @@
 1. NeneのMEGの.conファイル（たとえば314.prosody_neNE1_アナ雪_314_AK）を開き、これに該当するMRIファイル（この症例では3G19）を読み込むということ
 2. 209～212のどれかのチャンネルがトリガーになっているので、一番トリガーが多いチャンネルをチェック（例　この症例では211。数がトリガーのチャネル）
 3. このために右のセンサーの図の上でマウス右クリック→チャネル選択
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/2e6fb158-ba09-4449-b28a-aebb43e73f78)
+
 4. 同期加算のアイコンをクリック
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/0a701e04-7169-434d-b5ea-797bf6a35b7d)
+
 5. Level triggerを211にして、探索をクリック。パラメータを設定し、Executeをクリック。
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/8328bdc9-5136-43c2-88de-7dc550808f40)
+
 6. .aveファイルが作成される。編集→基線補正。パラメータは -50から0。
 7. MRIマーカー拾いと、MEGマーカー読み込み、位置合わせは前述の「マーカーを用いた位置合わせ」と同じ手順。
 8. 80-120msくらいにでる成分に注目。被験者にもよって波形は微妙に異なる
 （きれいに出る人）
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/1fd2e3ff-66ac-4a41-8c63-e42f858002e9)
 （ややぼやける人）
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/b55adcbf-8190-4546-a195-307a183a3fb9)
-9. ダイポールは左右それぞれに推定していく。その際にはsinkとsourceに注目し、Sinkとsourceの反応がきれいに出ている80-120msくらいを選んで（この人は120より遅め）
+
+10. ダイポールは左右それぞれに推定していく。その際にはsinkとsourceに注目し、Sinkとsourceの反応がきれいに出ている80-120msくらいを選んで（この人は120より遅め）
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/8d2d51cb-6fe1-4eb8-8fd1-9fc985bba863)
-10. まずは右のセンサーの画面から、ダイポールが出ていそうなところの周辺のセンサーだけを選び
+
+12. まずは右のセンサーの画面から、ダイポールが出ていそうなところの周辺のセンサーだけを選び
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/ac706dcc-47a1-42e4-89e8-2256bfac1dc3)
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/c8918a6c-c311-47e1-9686-f7cb2436da06)
-11. 解析→等価電流双極子推定→上のパラメータに設定し、推定＃１をクリック。ダイポールの場所を確認する。
-12. MRIマーカー拾いで、脳の位置を調整する。この時、下の図左にあるような場所にダイポールが推定されることを目指す。現実には下図くらいで妥協。
+
+14. 解析→等価電流双極子推定→上のパラメータに設定し、推定＃１をクリック。ダイポールの場所を確認する。
+15. MRIマーカー拾いで、脳の位置を調整する。この時、下の図左にあるような場所にダイポールが推定されることを目指す。現実には下図くらいで妥協。
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/6946faf0-497b-4106-b379-459d2f2646d4)
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/700fd1fd-30f2-41c9-8d5c-f7b0e5559892)
-13. ダイポールがいい位置にくるまで「MRIマーカー拾い→位置合わせ→電流双極子推定」を繰り返す。
-14. 画面下のMRIを右クリック→MEGセンサー表示で、下のような画面になるので確認に便利
+
+14. ダイポールがいい位置にくるまで「MRIマーカー拾い→位置合わせ→電流双極子推定」を繰り返す。
+15. 画面下のMRIを右クリック→MEGセンサー表示で、下のような画面になるので確認に便利
 （センサーが大きくずれている例）
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/59aad27b-d4fd-4bec-b4c6-5af45293e364)
-15. 調整が終わったら、.aveを上書き保存。
-16. あらためて.conを開く。
-17. 先ほどの.mriをあらためて読み込む
-18. .mrkを読み込み、位置合わせ。
+
+16. 調整が終わったら、.aveを上書き保存。
+17. あらためて.conを開く。
+18. 先ほどの.mriをあらためて読み込む
+19. .mrkを読み込み、位置合わせ。
 
 
 ### SurfacePointFile作成保存、con保存およびエクスポート
