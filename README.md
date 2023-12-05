@@ -198,7 +198,7 @@
 ### Brainstorm用にエクスポート（IdenticalMRI.txtが無い場合はSurfacePointFile作成保存）
 #### IdenticalMRI.txtが有る場合
 1. YokogawaMegExportToolを起動
-2. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→IdenticalMRI.txtファイルを選択→Create Export Fileをクリック(すでにsurfacepointfileでexportしている場合上書きされてしまうのでExportFilenameの末尾を_digi.conなどに変更する)
+2. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→IdenticalMRI.txtファイルを選択→Create Export Fileをクリック
 #### IdenticalMRI.txtが無い場合
 1. ファイル→インポートとエクスポート→BESAテキストエクスポート→Surface point file→fiducial…と聞かれるので、はいをクリック→Surface point listの中にある点をクリックしてdeleteを繰り返し、すべて消す→NewをクリックしPickをクリック、脳の表面を選んで指定する→同じくNewをクリックしPickをクリック、脳の表面を選んで指定することを繰り返す。高さを変えつつ、20点以上選ぶこと（なるべく多い方が、あとでbrainstorm上で位置合わせをするときに精度がよい）。最初の3点は順にLPA、RPA、nasion（小さい赤、黄色、青の点）とする。→OKをクリック→ファイル名を決めて保存。日本語を入れない、被験者番号を入れないことが重要
 2. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
