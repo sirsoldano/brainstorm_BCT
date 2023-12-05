@@ -204,4 +204,3 @@
 2. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
 3. YokogawaMegExportToolを起動
 4. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→SurfacePointfileは先ほど作った.sfpファイルを選択→Create Export Fileをクリック
-(Digitizerファイルがある場合)
