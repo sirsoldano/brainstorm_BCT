@@ -1,5 +1,7 @@
 # MEG160 Brainstorm 解析手順
 
+## MEG160パート
+
 <details>
 
   <summary>Fastrack (廣澤先生記載)</summary>
@@ -204,3 +206,16 @@
 2. ファイル→名前を付けて保存→末尾に_analysisとつけて保存
 3. YokogawaMegExportToolを起動
 4. MEG filenameの右のSearchをクリック→先ほど作った_analysis.conを選択→SurfacePointfileは先ほど作った.sfpファイルを選択→Create Export Fileをクリック
+
+
+## Brainstormパート
+
+### ※わからなければチュートリアルを読むと大方解決します -[https://neuroimage.usc.edu/brainstorm/Tutorials](https://neuroimage.usc.edu/brainstorm/Tutorials)
+
+brainstormのインストールは相馬が行った方が良さそうなので相談してください。基本構成の重要な点はbrainstorm3フォルダにアプリケーションの本体が入っていてmatlab側でその場所が設定されており(パスが通っていて)、brainstorm_dbフォルダに研究プロジェクトごとにフォルダが作成されていくということです。プロジェクト毎の構成はアナトミーとデータに分かれていて、それぞれMRIとMEGの位置情報およびそれらの関係、波形データとキューなどの時間軸情報が入っています。
+
+### 研究フォルダを作成
+
+1. FileからCreate new protocol
+2. Protocol名を自身の研究内容を明示する名前に変更。Default anatomy: No , Default channel file: No でCreate
+3. Fileなどの並ぶナビゲーションバー下のプルダウン窓に上記名前が表示されるようになるので選択。**※brainstormを共用している場合はここを間違えないように注意**
