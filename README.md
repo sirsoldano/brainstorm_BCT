@@ -211,8 +211,11 @@
 ### ※わからなければチュートリアルを読むと大方解決します [https://neuroimage.usc.edu/brainstorm/Tutorials](https://neuroimage.usc.edu/brainstorm/Tutorials)
 
 brainstormのインストールは相馬が行った方が良さそうなので相談してください。基本構成の重要な点はbrainstorm3フォルダにアプリケーションの本体が入っていてmatlab側でその場所が設定されており(パスが通っていて)、brainstorm_dbフォルダに研究プロジェクトごとにフォルダが作成されていくということです。プロジェクト毎の構成は**アナトミー**と**データ**に分かれていて、それぞれ
-[anatomyフォルダ] MRIとMEGの位置情報およびそれらの関係
-[dataフォルダ] 波形データとキュー(タスクの開始時間や使用しないセグメントの指定区間)などの時間軸情報
+
+- **anatomyフォルダ** : MRIとMEGの位置情報およびそれらの関係
+
+- **dataフォルダ** : 波形データとキュー(タスクの開始時間や使用しないセグメントの指定区間)などの時間軸情報
+
 から構成されています。
 
 ### 研究フォルダ(protocol)を作成
@@ -231,4 +234,5 @@ brainstormのインストールは相馬が行った方が良さそうなので�
 6. MRI画像が出るのでLPA、RPA、Nasion、AC、PCをセットする。[参考URL](https://neuroimage.usc.edu/brainstorm/CoordinateSystems)
 7. MNI:Click here to compute MNI transformationをクリックする。OKをクリックする。
 8. Saveをクリックする。下図が出現すれば完了
+
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/77fc960d-75d9-4c42-aa43-138b03570be3)
