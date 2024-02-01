@@ -230,9 +230,34 @@ brainstormのインストールは相馬が行った方が良さそうなので�
 2. アイコン下リストのプロトコル名を右クリックしてNew subject
 3. 被験者番号はフォルダ名と同じ6桁の数字、Default anatomy : No , Default channel file : No
 4. 追加された被験者番号を右クリックしてImport anatomy folder
-5. freesurferフォルダ内の被験者番号フォルダを選択し開く。Number of vertices on the cortex surfaceは15000
+5. freesurferフォルダ内の被験者番号フォルダを選択し開く。Number of vertices on the cortex surfaceは15000 (これでMRIデータが紐付けられる)
 6. MRI画像が出るのでLPA、RPA、Nasion、AC、PCをセットする。[参考URL](https://neuroimage.usc.edu/brainstorm/CoordinateSystems)
 7. MNI:Click here to compute MNI transformationをクリックする。OKをクリックする。
 8. Saveをクリックする。下図が出現すれば完了
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/77fc960d-75d9-4c42-aa43-138b03570be3)
+
+### data編集
+
+#### conファイルの紐づけとMEGセンサー位置の調整
+
+1. プルダウン窓下の アイコン3つ＋虫眼鏡アイコン の行の、左から2番目のアイコン(functional data)を選択
+2. 被験者番号を右クリックしてreview raw file
+3. 対応する被験者番号のexport.conを選択 (これで波形データが紐付けられる)
+4. 下図のようにMEGセンサーの集合を表す黄色のヘルメット(conファイル)、頭蓋表面の位置を表す緑のプロット(export時にconファイルと紐づけたfastscanかsurfacePointFile)、上記anatomyで登録した土気色の頭蓋(freesurfer)が表示される
+
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/dee9f7b0-4ef0-4495-8b8d-044d898067df)
+
+5. (この工程をやらない流派もあります) 上図のようにセンサーと頭の位置が合わない場合はKIT channelを右クリック→MRI registration→editから下図のようにセンサー位置を調整
+
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/54d91a14-23cf-44f1-93f7-3204045ce3fa)
+
+6. そもそも土気色の頭蓋の形がおかしい(異形の大きな角、ベネチアンマスクなど)場合はanatomy側で被験者番号を右クリックしてGenerate head surface → Erode factorを1にしてOKとする。それでもだめならthresholdを下げてOKとする。新しいbrain maskを作成しそれを採用する場合、古いbrain maskは削除する。
+
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/2a6324aa-bd99-458b-b120-34023bb2d7a3)
+
+#### 波形データ編集
+
+1. bad channelの選定：壊れているMEGコイルがたまにあるのでそれを指定する。Link to raw fileをダブルクリックして、統合波形でなく全波形別表示にして不調なセンサーを特定、その波をクリックして右クリックからchannels→mark selected as bad (各被験者ごとにこれを行う方法と、全被験者見てから全被験者共通のbad channelを指定する方法があります。全被験者共通の場合はBeforeRemoveの上の方のパラメーターに書き加えると自動で全被験者に適用されます。)
+2. BeforeRemove.mをbrainstorm_db > dataの被験者らファイルと同階層に置いて、matlabでその階層を開き、BeforeRemove.mを開く。
+3. 
