@@ -255,9 +255,29 @@ brainstormのインストールは相馬が行った方が良さそうなので�
 6. そもそも土気色の頭蓋の形がおかしい(異形の大きな角、ベネチアンマスクなど)場合はanatomy側で被験者番号を右クリックしてGenerate head surface → Erode factorを1にしてOKとする。それでもだめならthresholdを下げてOKとする。新しいbrain maskを作成しそれを採用する場合、古いbrain maskは削除する。
 
 ![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/2a6324aa-bd99-458b-b120-34023bb2d7a3)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/b7c2cc64-d111-4633-a7e6-023484fa3b58)
+
 
 #### 波形データ編集
 
 1. bad channelの選定：壊れているMEGコイルがたまにあるのでそれを指定する。Link to raw fileをダブルクリックして、統合波形でなく全波形別表示にして不調なセンサーを特定、その波をクリックして右クリックからchannels→mark selected as bad (各被験者ごとにこれを行う方法と、全被験者見てから全被験者共通のbad channelを指定する方法があります。全被験者共通の場合はBeforeRemoveの上の方のパラメーターに書き加えると自動で全被験者に適用されます。)
 2. BeforeRemove.mをbrainstorm_db > dataの被験者らファイルと同階層に置いて、matlabでその階層を開き、BeforeRemove.mを開く。
-3. 
+3. SubjectNamesに被験者番号を入力しBeforeRemove.mを実行してみる。ICAまで順調に行われるようならばOK。被験者番号はコンマ区切りで無数に指定できるので全被験者入力して実行。
+(ここではサンプリング周波数の500Hzへのダウンサンプリング、周波数フィルター、バッドチャンネルの指定、ICAが行われる)
+4. ICAまでうまくいっていれば下図のような変遷が辿れる(処理後の波形ファイルが新たに作成されているのでダブルクリックで開くとArtifact→Select active projectsでコンポーネントが20個表示される→Display component timeseries)
+
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/bedb1e51-9c8e-41f3-ab86-f68f34157ca8)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/d5b13694-8065-483d-97c1-116ffecc08da)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/1e1a87a0-492b-41b9-a67e-95a50223b52b)
+![image](https://github.com/sirsoldano/brainstorm_BCT/assets/25501011/6af8c274-3729-449d-8641-6301b27adb5b)
+
+5. 心電図、眼球運動を反映していると考えられるコンポーネントにチェックをつけて取り除いていく(1-5個ほどのコンポーネントが指定される)。saveして終了
+6. MEGの全体波形に戻り、体動や電波ノイズなどの大きい部分を左ドラッグで選択しては右クリックからbad segmentとして指定していく(reject time segment)。
+7. AfterRemove.mをbrainstorm_db > dataの被験者らファイルと同階層に置いて、matlabでその階層を開き、AfterRemove.mを開く。
+8. SubjectNamesに被験者番号を入力しAfterRemove.mを実行してみる。matrix>各周波数フォルダ内にmatファイルが作成されるようなら成功。被験者番号はコンマ区切りで無数に指定できるので全被験者入力して実行。※実行するたびにmatrixと名のついた同階層のフォルダは完全上書きされますので、一旦全被験者分が出力されたらできたmatrixフォルダの名前を変更するように。
+(ここではエポッキング、電流源推定、ノイズコバリアンス、スカウト、PLI計算が行われる)
+
+### グラフ指標算出パート (brainstormは終了)
+
+1.BrainConnectivityToolboxをダウンロードしパスを通す(わからなければ相馬がやります)
+2.周波数フォルダが並ぶ階層と同階層にbst_connectivity.mを置いてmatlabで開く。実行する。エクセルファイルが作成されれば成功。
